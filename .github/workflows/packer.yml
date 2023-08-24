@@ -16,7 +16,7 @@ jobs:
 
       - name: Import Secrets
         id: import-secrets
-        uses: hashicorp/vault-action@v2
+        uses: hashicorp/vault-action@v2.7.3
         with: 
           url: https://13.250.117.127:8200
           tlsSkipVerify: ${{ env.VAULT_SKIP_VERIFY}}
