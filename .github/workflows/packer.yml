@@ -18,12 +18,13 @@ jobs:
         id: import-secrets
         uses: hashicorp/vault-action@v2.7.3
         with: 
-          url: https://13.250.117.127:8200
+          url: ${{ env.VAULT_ADDR }}
           tlsSkipVerify: ${{ env.VAULT_SKIP_VERIFY}}
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
             aws/creds/vault-temp-role access_key | AWS_ACCESS_KEY_ID ;
-            aws/creds/vault-temp-role secret_key | AWS_SECRET_ACCESS_KEY
+            aws/creds/vault-temp-role secret_key | AWS_SECRET_ACCESS_KEY ;
+            aws/creds/vault-temp-role region | AWS_DEFAULT_REGION
       
       - name: Setup `packer`
         uses: hashicorp/setup-packer@main

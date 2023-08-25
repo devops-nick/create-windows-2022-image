@@ -37,16 +37,35 @@ source "amazon-ebs" "windows-2022" {
   winrm_use_ssl    = true
 }
 
+source "amazon-ebs" "rhel-9" {
+  ami_name = ""
+  communicator = "ssh"
+  instance_type = "ssh"
+  region = var.region
+  source_ami_filter {
+    filters = {
+      name = ""
+      root-device-type = "ebs"
+      virtualization-type = "hvm"
+    }
+    most_recent = true
+    owners = ["amazon"]
+  }
+
+  user_data_file = ""
+  force_deregister = true 
+}
+
 build {
   // name    = "temp-build-windows-2022"
   sources = ["source.amazon-ebs.windows-2022"]
 
-  // provisioner "ansible" {
-  //   playbook_file = "./cis-security/roles/cis_security/tasks/main.yml"
-  //   extra_arguments = [
-  //     "--extra-vars",
-  //     "ansible_distribution=${var.ansible_distribution}",
-  //     "ansible_distribution_major_version=${var.ansible_distribution_major_version}"
-  //   ]
-  // }
+  provisioner "ansible" {
+    playbook_file = "./cis-security/roles/cis_security/tasks/main.yml"
+    extra_arguments = [
+      "--extra-vars",
+      "ansible_distribution=${var.ansible_distribution}",
+      "ansible_distribution_major_version=${var.ansible_distribution_major_version}"
+    ]
+  }
 }
