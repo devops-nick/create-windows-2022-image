@@ -5,6 +5,7 @@ on:
 env:
   PRODUCT_VERSION: "latest"
   VAULT_SKIP_VERIFY: "true"
+  AWS_DEFAULT_REGION: "ap-southeast-1"
 
 jobs:
   packer:
@@ -23,8 +24,8 @@ jobs:
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
             aws/creds/vault-temp-role access_key | AWS_ACCESS_KEY_ID ;
-            aws/creds/vault-temp-role secret_key | AWS_SECRET_ACCESS_KEY ;
-            aws/creds/vault-temp-role region | AWS_DEFAULT_REGION
+            aws/creds/vault-temp-role secret_key | AWS_SECRET_ACCESS_KEY 
+            
       
       - name: Setup `packer`
         uses: hashicorp/setup-packer@main
