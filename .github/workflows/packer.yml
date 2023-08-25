@@ -41,7 +41,7 @@ jobs:
         id: harden
         with: 
           repository: "devops-nick/cis-security"
-          
+          path: "cis-security"
   
       - name: Setup `packer`
         uses: hashicorp/setup-packer@main
