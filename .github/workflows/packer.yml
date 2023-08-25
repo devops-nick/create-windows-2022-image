@@ -19,7 +19,7 @@ jobs:
         id: import-secrets
         uses: hashicorp/vault-action@v2.7.3
         with: 
-          url: ${{ secrets.VAULT_ADDR }}
+          url: ${{ vars.VAULT_ADDR }}
           tlsSkipVerify: ${{ env.VAULT_SKIP_VERIFY}}
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
