@@ -26,7 +26,23 @@ jobs:
             aws/creds/vault-temp-role access_key | AWS_ACCESS_KEY_ID ;
             aws/creds/vault-temp-role secret_key | AWS_SECRET_ACCESS_KEY 
             
+      - name: Setup `Python 3.9`
+        uses: actions/setup-python@v2 
+        with: 
+            python-version: 3.9
       
+      - name: Install dependencies including Ansible 
+        run: | 
+          python -m pip install --upgrade pip ;
+          pip install ansible ;
+
+      - name: Checkout Playbook
+        uses: actions/checkout@v3
+        id: harden
+        with: 
+          repository: "devops-nick/cis-security"
+          
+  
       - name: Setup `packer`
         uses: hashicorp/setup-packer@main
         id: setup
@@ -44,3 +60,5 @@ jobs:
       - name: Run `packer build`
         id: build
         run: "packer build ."
+
+      
