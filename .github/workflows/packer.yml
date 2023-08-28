@@ -23,8 +23,8 @@ jobs:
           tlsSkipVerify: ${{ env.VAULT_SKIP_VERIFY}}
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
-            aws/creds/vault-temp-role access_key | AWS_ACCESS_KEY_ID ;
-            aws/creds/vault-temp-role secret_key | AWS_SECRET_ACCESS_KEY 
+            aws/creds/packer access_key | AWS_ACCESS_KEY_ID ;
+            aws/creds/packer secret_key | AWS_SECRET_ACCESS_KEY 
             
       - name: Setup `Python 3.9`
         uses: actions/setup-python@v2 
